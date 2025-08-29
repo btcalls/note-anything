@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Moved colors definition to @/constants/colors. */
+
+/* Font declarations here */
+@font-face {
+  font-family: 'SpaceMono';
+  src: url('./assets/fonts/SpaceMono-Regular.ttf');
+}

@@ -8,7 +8,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import useAppColor from '@/hooks/useAppColor';
 
-export default function TabTwoScreen() {
+export default function DetailsScreen() {
   const iconColor = useAppColor('icon');
 
   return (

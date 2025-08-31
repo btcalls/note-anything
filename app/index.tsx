@@ -3,11 +3,11 @@ import { ActivityIndicator, FlatList } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-
-import { Tag } from './models';
+import { Tag } from '@/lib/models';
+import { supabase } from '@/lib/supabase';
 
 export default function HomeScreen() {
-  const ITEM_HEIGHT = 100;
+  const ITEM_HEIGHT = 300;
   const [data, setData] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,21 +15,23 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('https://api.sampleapis.com/coffee/hot');
+        const { data: tags, error } = await supabase.from('tag').select();
 
-        if (!res.ok) {
-          throw new Error('Failed to fetch');
+        if (error) {
+          setError(error.message);
+          return;
         }
 
-        const json = await res.json();
-
-        setData(json);
+        if (tags && tags.length > 0) {
+          setData(tags);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, []);
 

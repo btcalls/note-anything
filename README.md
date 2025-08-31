@@ -1,8 +1,13 @@
-# Welcome to your Expo app 👋
+# Note Anything 📝
+**Who, what, where?** Regardless of which, note it down!
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Inspiration
+This project was inspired by my recently picked up habit wherein I would record in a default Notes app any person my partner would have an interaction with. 
+
+It is a somewhat of an inside joke between us. But then I thought, maybe noting these down may serve a purpose after all - to remind us of these seemingly ordinary moments and appreciate it for what it is. Thus, `Note Anything` was born.
 
 ## Get started
+This is created using the [RN Project Template](https://github.com/btcalls/rn-expo-template), which is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). To start:
 
 1. Install dependencies
 
@@ -16,35 +21,21 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+### Setup
+#### Environment Variables
+`env.template` is provided as a template for your `.env` files. This is where you'll supply the necessary keys and tokens, in this case, our Supabase configuration.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+#### Supabase
+Following mostly for this [documentation](https://supabase.com/docs/guides/api/rest/generating-types), first, we would need to login to get our Personal Access Token:
 
 ```bash
-npm run reset-project
+npx supabase login
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Once successfully logged in, copy the token created in the CLI and add it to your `.env.local` file as your `SUPABASE_ACCESS_TOKEN` variable.
 
-## Learn more
+Once all needed variables for your Supabase configuration are already added to your env file, run the following command to generate and update your database types: 
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx supabase gen types typescript --project-id <your_actual_project_id> > ./lib/database.types.ts
+```

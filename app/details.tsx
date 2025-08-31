@@ -1,14 +1,14 @@
-import { Image, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import useAppColor from '@/hooks/useAppColor';
+import { Collapsible } from '~/components/Collapsible';
+import { ExternalLink } from '~/components/ExternalLink';
+import ParallaxScrollView from '~/components/ParallaxScrollView';
+import { ThemedText } from '~/components/ThemedText';
+import { ThemedView } from '~/components/ThemedView';
+import { IconSymbol } from '~/components/ui/IconSymbol';
+import useAppColor from '~/hooks/useAppColor';
 
-export default function TabTwoScreen() {
+export default function DetailsScreen() {
   const iconColor = useAppColor('icon');
 
   return (
@@ -57,7 +57,6 @@ export default function TabTwoScreen() {
           <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
           different screen densities
         </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
         <ExternalLink href="https://reactnative.dev/docs/images">
           <ThemedText type="link">Learn more</ThemedText>
         </ExternalLink>

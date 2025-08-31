@@ -1,7 +1,7 @@
 import convert from 'color-convert';
 
-import { Colors } from '@/constants/colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Colors } from '~/constants/colors';
+import { useColorScheme } from '~/hooks/useColorScheme';
 
 const { AppColors, BrandColors } = require('../constants/colors');
 

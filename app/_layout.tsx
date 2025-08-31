@@ -8,9 +8,11 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Provider } from 'react-redux';
 
 import { useColorScheme } from '~/hooks/useColorScheme';
 import { NavTheme } from '~/lib/constants';
+import { store } from '~/lib/store';
 
 // * Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,20 +38,22 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'Your Lists',
-            headerLargeTitle: true,
-            headerBackButtonDisplayMode: 'minimal',
-          }}
-        />
-        <Stack.Screen name="details" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{
+              title: 'Your Lists',
+              headerLargeTitle: true,
+              headerBackButtonDisplayMode: 'minimal',
+            }}
+          />
+          <Stack.Screen name="details" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </Provider>
   );
 }

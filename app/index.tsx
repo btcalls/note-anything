@@ -1,29 +1,43 @@
+import { QueryData } from '@supabase/supabase-js';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Tag } from '@/lib/models';
-import { supabase } from '@/lib/supabase';
+import { ThemedText } from '~/components/ThemedText';
+import { ThemedView } from '~/components/ThemedView';
+import { supabase } from '~/lib/supabase';
+import { ArrayElement } from '~/lib/utils';
 
 export default function HomeScreen() {
   const ITEM_HEIGHT = 300;
-  const [data, setData] = useState<Tag[]>([]);
+
+  const listsQuery = supabase.from('lists').select(`
+    id,
+    name,
+    tags (
+      name
+    ),
+    modified_at
+  `);
+
+  type ListsQuery = QueryData<typeof listsQuery>;
+  type List = ArrayElement<ListsQuery>;
+
+  const [data, setData] = useState<ListsQuery>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: tags, error } = await supabase.from('tag').select();
+        const { data: lists, error } = await listsQuery;
 
         if (error) {
           setError(error.message);
           return;
         }
 
-        if (tags && tags.length > 0) {
-          setData(tags);
+        if (lists && lists.length > 0) {
+          setData(lists);
         }
       } catch (err: any) {
         setError(err.message);
@@ -36,9 +50,15 @@ export default function HomeScreen() {
   }, []);
 
   const renderItem = useCallback(
-    ({ item }: { item: Tag }) => (
+    ({ item }: { item: List }) => (
       <ThemedView className="p-4">
         <ThemedText type="title">{item.name}</ThemedText>
+        {item.tags && item.tags.length > 0 && (
+          <ThemedText type="subtitle">
+            Tags: {item.tags.map((tag) => tag.name).join(', ')}
+          </ThemedText>
+        )}
+        <ThemedText>Last Modified: {new Date(item.modified_at).toLocaleString()}</ThemedText>
       </ThemedView>
     ),
     []

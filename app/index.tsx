@@ -1,11 +1,12 @@
 import { QueryData } from '@supabase/supabase-js';
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedText } from '~/components/ThemedText';
 import { ThemedView } from '~/components/ThemedView';
 import { supabase } from '~/lib/supabase';
-import { ArrayElement } from '~/lib/utils';
+import { ArrayElement, getItemLayout } from '~/lib/utils';
 
 export default function HomeScreen() {
   const ITEM_HEIGHT = 300;
@@ -52,13 +53,23 @@ export default function HomeScreen() {
   const renderItem = useCallback(
     ({ item }: { item: List }) => (
       <ThemedView className="p-4">
-        <ThemedText type="title">{item.name}</ThemedText>
-        {item.tags && item.tags.length > 0 && (
-          <ThemedText type="subtitle">
-            Tags: {item.tags.map((tag) => tag.name).join(', ')}
+        <ThemedView className="flex-row items-center justify-between">
+          <ThemedText type="title">{item.name}</ThemedText>
+          <ThemedText className="color-slate-500 text-sm">
+            {new Date(item.modified_at).toLocaleDateString()}
           </ThemedText>
-        )}
-        <ThemedText>Last Modified: {new Date(item.modified_at).toLocaleString()}</ThemedText>
+        </ThemedView>
+
+        <ThemedView className="mt-2 flex-row flex-wrap gap-2">
+          {item.tags.map((tag) => (
+            <Text
+              key={tag.name}
+              className="px-2 py-1 rounded-md color-white bg-red-400 dark:bg-red-500 w-fit font-medium"
+            >
+              {tag.name}
+            </Text>
+          ))}
+        </ThemedView>
       </ThemedView>
     ),
     []
@@ -73,15 +84,18 @@ export default function HomeScreen() {
   }
 
   return (
-    <FlatList
-      contentContainerClassName="gap-3"
-      data={data}
-      keyExtractor={(item) => `${item.id}`}
-      renderItem={renderItem}
-      // Optimize FlatList performance
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
-    />
+    <SafeAreaProvider>
+      <FlatList
+        contentContainerClassName="gap-3"
+        data={data}
+        keyExtractor={(item) => `${item.id}`}
+        renderItem={renderItem}
+        contentInsetAdjustmentBehavior="automatic"
+        // Optimize FlatList performance
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
+      />
+    </SafeAreaProvider>
   );
 }

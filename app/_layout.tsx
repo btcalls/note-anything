@@ -42,6 +42,7 @@ export default function RootLayout() {
           name="index"
           options={{
             title: 'Your Lists',
+            headerLargeTitle: true,
             headerBackButtonDisplayMode: 'minimal',
           }}
         />

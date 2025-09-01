@@ -11,7 +11,12 @@ const ITEM_HEIGHT = 300;
 export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
 
-  const renderItem = useCallback(({ item }: { item: ListItem }) => <ListItemRow item={item} />, []);
+  const renderItem = useCallback(
+    ({ item }: { item: ListItem }) => (
+      <ListItemRow className="p-4 mx-2 rounded-lg shadow-sm shadow-label/35" item={item} />
+    ),
+    []
+  );
 
   if (isLoading) {
     return <ActivityIndicator className="h-full" size="large" />;
@@ -23,7 +28,7 @@ export default function HomeScreen() {
 
   return (
     <FlatList
-      contentContainerClassName="gap-3"
+      contentContainerClassName="gap-3 mt-4"
       data={data}
       keyExtractor={(item) => `${item.id}`}
       renderItem={renderItem}

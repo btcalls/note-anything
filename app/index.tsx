@@ -7,9 +7,9 @@ import { ThemedText } from '~/components/ThemedText';
 import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
 
-export default function HomeScreen() {
-  const ITEM_HEIGHT = 300;
+const ITEM_HEIGHT = 300;
 
+export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
 
   const renderItem = useCallback(({ item }: { item: ListItem }) => <ListItemRow item={item} />, []);

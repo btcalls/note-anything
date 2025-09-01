@@ -49,7 +49,7 @@ export default function RootLayout() {
               headerBackButtonDisplayMode: 'minimal',
             }}
           />
-          <Stack.Screen name="details" />
+          <Stack.Screen name="details/[id]" />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

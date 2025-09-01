@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import { useColorScheme } from '~/hooks/useColorScheme';
@@ -39,21 +40,22 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              title: 'Your Lists',
-              headerLargeTitle: true,
-              headerBackButtonDisplayMode: 'minimal',
-            }}
-          />
-          <Stack.Screen name="details/[id]" />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                title: 'Your Lists',
+                headerLargeTitle: true,
+              }}
+            />
+            <Stack.Screen name="details/[id]" options={{ title: '', headerLargeTitle: true }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </SafeAreaProvider>
     </Provider>
   );
 }

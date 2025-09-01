@@ -3,7 +3,7 @@ import { Text, type TextProps } from 'react-native';
 import { cn } from '~/lib/utils';
 
 export type ThemedTextProps = TextProps & {
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'details';
 };
 
 export function ThemedText({ className, type = 'default', ...rest }: ThemedTextProps) {
@@ -12,8 +12,9 @@ export function ThemedText({ className, type = 'default', ...rest }: ThemedTextP
     'text-base': type === 'default' || type === 'defaultSemiBold',
     'font-semibold': type === 'defaultSemiBold',
     'text-2xl font-bold': type === 'title',
-    'text-l font-semibold': type === 'subtitle',
+    'text-lg font-semibold': type === 'subtitle',
     'text-sm/10 text-link': type === 'link',
+    'text-slate-700 dark:text-slate-400 text-sm': type === 'details',
     [`${className}`]: !!className,
   });
 

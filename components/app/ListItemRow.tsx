@@ -17,9 +17,7 @@ export default function ListItemRow({ item, className }: Props) {
     >
       <View className="flex-row items-center justify-between">
         <ThemedText type="title">{item.name}</ThemedText>
-        <ThemedText className="color-slate-500 text-sm">
-          {new Date(item.modified_at).toLocaleDateString()}
-        </ThemedText>
+        <ThemedText type="details">{new Date(item.modified_at).toLocaleDateString()}</ThemedText>
       </View>
 
       <View className="mt-2 flex-row flex-wrap gap-2">

@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ListItemRow from '~/components/app/ListItemRow';
 
 import { ThemedText } from '~/components/ThemedText';
@@ -23,18 +22,17 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaProvider>
-      <FlatList
-        contentContainerClassName="gap-3"
-        data={data}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={renderItem}
-        contentInsetAdjustmentBehavior="automatic"
-        // Optimize FlatList performance
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
-        getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
-      />
-    </SafeAreaProvider>
+    <FlatList
+      contentContainerClassName="gap-3"
+      data={data}
+      keyExtractor={(item) => `${item.id}`}
+      renderItem={renderItem}
+      contentInsetAdjustmentBehavior="automatic"
+      // Optimize FlatList performance
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
+      removeClippedSubviews
+    />
   );
 }

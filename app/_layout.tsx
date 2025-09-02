@@ -11,6 +11,7 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
+import { useAppSelector } from '~/hooks/reduxHooks';
 import { useColorScheme } from '~/hooks/useColorScheme';
 import { NavTheme } from '~/lib/constants';
 import { store } from '~/lib/store';
@@ -42,20 +43,32 @@ export default function RootLayout() {
     <Provider store={store}>
       <SafeAreaProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen
-              name="index"
-              options={{
-                title: 'Your Lists',
-                headerLargeTitle: true,
-              }}
-            />
-            <Stack.Screen name="details/[id]" options={{ title: '', headerLargeTitle: true }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <GuardedStack />
           <StatusBar style="auto" />
         </ThemeProvider>
       </SafeAreaProvider>
     </Provider>
+  );
+}
+
+function GuardedStack() {
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
+  return (
+    <Stack>
+      <Stack.Protected guard={isLoggedIn}>
+        <Stack.Screen
+          name="(lists)"
+          options={{
+            title: 'Your Lists',
+            headerLargeTitle: true,
+          }}
+        />
+      </Stack.Protected>
+      <Stack.Protected guard={!isLoggedIn}>
+        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+      </Stack.Protected>
+      <Stack.Screen name="+not-found" />
+    </Stack>
   );
 }

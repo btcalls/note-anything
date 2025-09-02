@@ -10,16 +10,19 @@ export type Database = {
     Tables: {
       details: {
         Row: {
+          created_at: string;
           description: string;
           id: number;
           note_id: number;
         };
         Insert: {
+          created_at?: string;
           description: string;
           id?: number;
           note_id: number;
         };
         Update: {
+          created_at?: string;
           description?: string;
           id?: number;
           note_id?: number;

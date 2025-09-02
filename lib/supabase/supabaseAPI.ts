@@ -5,14 +5,19 @@ import { ArrayElement } from '../utils';
 import { supabase } from './supabaseClient';
 
 // Define reusable queries
-const listsQuery = supabase.from('lists').select(`
-  id,
-  name,
-  tags (
-    name
-  ),
-  modified_at
-`);
+const listsQuery = supabase
+  .from('lists')
+  .select(
+    `
+    id,
+    name,
+    tags (
+      name
+    ),
+    modified_at
+  `
+  )
+  .order('modified_at', { ascending: false });
 const notesQuery = (listId: number) =>
   supabase
     .from('lists')
@@ -24,11 +29,18 @@ const notesQuery = (listId: number) =>
         id,
         label,
         rank,
-        modified_at
+        modified_at,
+        latest_detail:details!inner (
+          description,
+          created_at
+        )
       )
     `
     )
-    .eq('id', listId);
+    .eq('id', listId)
+    .order('created_at', { referencedTable: 'notes.latest_detail', ascending: false })
+    .limit(1, { foreignTable: 'notes.latest_detail' })
+    .single();
 
 type ListsQuery = QueryData<typeof listsQuery>;
 
@@ -47,7 +59,7 @@ export const supabaseApi = createApi({
         return { data };
       },
     }),
-    getListNotes: builder.query<ListNotesItem | null, number>({
+    getListNotes: builder.query<ListNotesItem, number>({
       queryFn: async (listId) => {
         const { data, error } = await notesQuery(listId);
 
@@ -55,11 +67,13 @@ export const supabaseApi = createApi({
           return { error };
         }
 
-        if (data && data.length > 0) {
-          return { data: data[0] };
-        }
+        // Transform the data to take first item from latest_detail array
+        const notes = data.notes.map((note) => ({
+          ...note,
+          latest_detail: note.latest_detail[0],
+        }));
 
-        return { data: null };
+        return { data: { ...data, notes } };
       },
     }),
   }),
@@ -76,6 +90,10 @@ export type ListNotesItem = {
     label: string;
     rank: number;
     modified_at: string;
+    latest_detail: {
+      description: string;
+      created_at: string;
+    };
   }[];
 };
 

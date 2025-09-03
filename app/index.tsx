@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
-import ListItemRow from '~/components/app/ListItemRow';
 
+import ListItemRow from '~/components/app/ListItemRow';
 import { ThemedText } from '~/components/ThemedText';
 import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
@@ -22,8 +22,8 @@ export default function HomeScreen() {
     return <ActivityIndicator className="h-full" size="large" />;
   }
 
-  if (error as string) {
-    return <ThemedText>Failed fetching lists.</ThemedText>;
+  if (error) {
+    return <ThemedText>{error.message ?? 'Failed fetching lists.'}</ThemedText>;
   }
 
   return (

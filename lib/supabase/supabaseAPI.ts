@@ -2,6 +2,7 @@ import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryData } from '@supabase/supabase-js';
 
 import { ArrayElement } from '../utils';
+
 import { supabase } from './supabaseClient';
 
 // Define reusable queries
@@ -46,14 +47,28 @@ type ListsQuery = QueryData<typeof listsQuery>;
 
 export const supabaseApi = createApi({
   reducerPath: 'supabaseApi',
-  baseQuery: fakeBaseQuery(),
+  baseQuery: fakeBaseQuery<SupabaseQueryError>(),
   endpoints: (builder) => ({
+    logIn: builder.mutation<boolean, { email: string; password: string }>({
+      queryFn: async ({ email, password }) => {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          return { error: { code: `${error.status}`, message: error.message } };
+        }
+
+        return { data: true };
+      },
+    }),
     getLists: builder.query<ListsQuery, void>({
       queryFn: async () => {
         const { data, error } = await listsQuery;
 
         if (error) {
-          return { error };
+          return { error: { code: error.code, message: error.message } };
         }
 
         return { data };
@@ -64,7 +79,7 @@ export const supabaseApi = createApi({
         const { data, error } = await notesQuery(listId);
 
         if (error) {
-          return { error };
+          return { error: { code: error.code, message: error.message } };
         }
 
         // Transform the data to take first item from latest_detail array
@@ -80,6 +95,7 @@ export const supabaseApi = createApi({
 });
 
 // Export custom query single item types
+export type SupabaseQueryError = { code: string; message: string };
 export type ListItem = ArrayElement<ListsQuery>;
 export type NoteItem = ListNotesItem['notes'][0];
 export type ListNotesItem = {
@@ -97,4 +113,4 @@ export type ListNotesItem = {
   }[];
 };
 
-export const { useGetListsQuery, useGetListNotesQuery } = supabaseApi;
+export const { useGetListsQuery, useGetListNotesQuery, useLogInMutation } = supabaseApi;

@@ -1,6 +1,6 @@
 import '../global.css';
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -12,10 +12,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import { useColorScheme } from '~/hooks/useColorScheme';
+import useCurrentUser from '~/hooks/useCurrentUser';
 import { NavTheme } from '~/lib/constants';
 import { store } from '~/lib/store';
 
-// * Prevent the splash screen from auto-hiding before asset loading is complete.
+// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -30,7 +31,7 @@ export default function RootLayout() {
 
     if (loaded) {
       SplashScreen.hideAsync();
-      // * To fix issue of screen flashing when navigating between screens
+      // To fix issue of screen flashing when navigating between screens
     }
   }, [loaded, theme.colors.background]);
 
@@ -41,21 +42,34 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen
-              name="index"
-              options={{
-                title: 'Your Lists',
-                headerLargeTitle: true,
-              }}
-            />
-            <Stack.Screen name="details/[id]" options={{ title: '', headerLargeTitle: true }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+        <ThemeProvider value={theme}>
+          <GuardedStack />
           <StatusBar style="auto" />
         </ThemeProvider>
       </SafeAreaProvider>
     </Provider>
+  );
+}
+
+function GuardedStack() {
+  const { isLoggedIn } = useCurrentUser();
+
+  return (
+    <Stack>
+      <Stack.Protected guard={isLoggedIn}>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Your Lists',
+            headerLargeTitle: true,
+          }}
+        />
+        <Stack.Screen name="lists/[id]" options={{ title: '', headerLargeTitle: true }} />
+      </Stack.Protected>
+      <Stack.Protected guard={!isLoggedIn}>
+        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+      </Stack.Protected>
+      <Stack.Screen name="+not-found" />
+    </Stack>
   );
 }

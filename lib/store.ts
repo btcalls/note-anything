@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import { authSlice } from './slices/authSlice';
 import { supabaseApi } from './supabase/supabaseAPI';
 
 export const store = configureStore({
   reducer: {
     [supabaseApi.reducerPath]: supabaseApi.reducer,
+    [authSlice.name]: authSlice.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

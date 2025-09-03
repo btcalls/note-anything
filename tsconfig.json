@@ -8,7 +8,7 @@
     },
     "baseUrl": ".",
     "jsx": "react-jsx",
-    "types": ["node", "react", "react-native"],
+    "types": ["node", "react", "react-native", "jest"],
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true

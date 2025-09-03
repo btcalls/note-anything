@@ -1,6 +1,6 @@
-import { Theme } from '@react-navigation/native';
-import { fonts } from '@react-navigation/native/src/theming/fonts';
+import { DarkTheme, DefaultTheme, Theme } from '@react-navigation/native';
 
+// TODO: Colors to be more inline with Tailwind CSS colors
 export const NavTheme: { light: Theme; dark: Theme } = {
   light: {
     dark: false,
@@ -12,7 +12,7 @@ export const NavTheme: { light: Theme; dark: Theme } = {
       border: 'hsl(0 0% 84.7%)', // border
       notification: 'hsl(3 100% 59.4%)', // destructive
     },
-    fonts,
+    fonts: DefaultTheme.fonts,
   },
   dark: {
     dark: true,
@@ -24,6 +24,6 @@ export const NavTheme: { light: Theme; dark: Theme } = {
       border: 'hsl(240 2.5% 15.7%)', // border
       notification: 'hsl(3 100% 61.4%)', // destructive
     },
-    fonts,
+    fonts: DarkTheme.fonts,
   },
 };

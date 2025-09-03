@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import devToolsEnhancer from 'redux-devtools-expo-dev-plugin';
 
 import { authSlice } from './slices/authSlice';
 import { supabaseApi } from './supabase/supabaseAPI';
@@ -12,6 +13,13 @@ export const store = configureStore({
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(supabaseApi.middleware),
+  enhancers: (getDefaultEnhancers) => {
+    if (__DEV__) {
+      return getDefaultEnhancers().concat(devToolsEnhancer({ trace: true }));
+    }
+
+    return getDefaultEnhancers();
+  },
 });
 
 setupListeners(store.dispatch);

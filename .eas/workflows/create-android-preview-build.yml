@@ -1,0 +1,14 @@
+name: Create Preview Builds (Android)
+
+on:
+  push:
+    branches:
+      - staging
+      
+jobs:
+  build_android:
+    type: build
+    environment: preview
+    params:
+      platform: android
+      

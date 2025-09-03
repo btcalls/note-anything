@@ -15,7 +15,8 @@
     "commit": "cz",
     "react-devtools": "react-devtools",
     "expo-update": "npx expo install expo@latest; npx expo install --fix",
-    "preview-android": "npx eas-cli@latest workflow:run create-android-preview-build.yml"
+    "preview-android": "npx eas-cli@latest workflow:run create-android-preview-build.yml",
+    "knip": "npx knip"
   },
   "lint-staged": {
     "*.js": [
@@ -94,7 +95,6 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^24.3.0",
     "@types/react": "~19.0.10",
-    "@types/react-test-renderer": "^18.3.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",

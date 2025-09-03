@@ -2,6 +2,7 @@ import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryData } from '@supabase/supabase-js';
 
 import { ArrayElement } from '../utils';
+
 import { supabase } from './supabaseClient';
 
 // Define reusable queries

@@ -11,12 +11,12 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
-import { useAppSelector } from '~/hooks/reduxHooks';
 import { useColorScheme } from '~/hooks/useColorScheme';
+import useCurrentUser from '~/hooks/useCurrentUser';
 import { NavTheme } from '~/lib/constants';
 import { store } from '~/lib/store';
 
-// * Prevent the splash screen from auto-hiding before asset loading is complete.
+// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -31,7 +31,7 @@ export default function RootLayout() {
 
     if (loaded) {
       SplashScreen.hideAsync();
-      // * To fix issue of screen flashing when navigating between screens
+      // To fix issue of screen flashing when navigating between screens
     }
   }, [loaded, theme.colors.background]);
 
@@ -52,7 +52,7 @@ export default function RootLayout() {
 }
 
 function GuardedStack() {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn } = useCurrentUser();
 
   return (
     <Stack>

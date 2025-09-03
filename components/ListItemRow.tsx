@@ -2,8 +2,8 @@ import { Text, View, type ViewProps } from 'react-native';
 
 import { ListItem } from '~/lib/supabase/supabaseAPI';
 
-import PressableLink from '../PressableLink';
-import { ThemedText } from '../ThemedText';
+import PressableLink from './PressableLink';
+import { ThemedText } from './ThemedText';
 
 type Props = Pick<ViewProps, 'className'> & {
   item: ListItem;

@@ -58,12 +58,13 @@ function GuardedStack() {
     <Stack>
       <Stack.Protected guard={isLoggedIn}>
         <Stack.Screen
-          name="(lists)"
+          name="index"
           options={{
             title: 'Your Lists',
             headerLargeTitle: true,
           }}
         />
+        <Stack.Screen name="lists/[id]" options={{ title: '', headerLargeTitle: true }} />
       </Stack.Protected>
       <Stack.Protected guard={!isLoggedIn}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />

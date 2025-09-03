@@ -8,7 +8,6 @@ const initialState: AuthState = {
   isLoggedIn: false,
 };
 
-// TODO: Implement actual authentication logic
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

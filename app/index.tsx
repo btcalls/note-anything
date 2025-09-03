@@ -22,8 +22,8 @@ export default function HomeScreen() {
     return <ActivityIndicator className="h-full" size="large" />;
   }
 
-  if (error as string) {
-    return <ThemedText>Failed fetching lists.</ThemedText>;
+  if (error) {
+    return <ThemedText>{error.message ?? 'Failed fetching lists.'}</ThemedText>;
   }
 
   return (

@@ -36,8 +36,8 @@ export default function DetailsScreen() {
     return <ActivityIndicator className="h-full" size="large" />;
   }
 
-  if (error as string) {
-    return <ThemedText>Failed fetching list details.</ThemedText>;
+  if (error) {
+    return <ThemedText>{error.message ?? 'Failed fetching list details.'}</ThemedText>;
   }
 
   return (

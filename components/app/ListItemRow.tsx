@@ -13,7 +13,7 @@ export default function ListItemRow({ item, className }: Props) {
   return (
     <PressableLink
       className={className}
-      href={{ pathname: '/details/[id]', params: { id: item.id } }}
+      href={{ pathname: '/lists/[id]', params: { id: item.id } }}
     >
       <View className="flex-row items-center justify-between">
         <ThemedText type="title">{item.name}</ThemedText>

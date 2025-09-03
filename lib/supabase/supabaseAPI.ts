@@ -44,6 +44,20 @@ const notesQuery = (listId: number) =>
     .single();
 
 type ListsQuery = QueryData<typeof listsQuery>;
+type ListNotesItem = {
+  id: number;
+  name: string;
+  notes: {
+    id: number;
+    label: string;
+    rank: number;
+    modified_at: string;
+    latest_detail: {
+      description: string;
+      created_at: string;
+    };
+  }[];
+};
 
 export const supabaseApi = createApi({
   reducerPath: 'supabaseApi',
@@ -98,19 +112,5 @@ export const supabaseApi = createApi({
 export type SupabaseQueryError = { code: string; message: string };
 export type ListItem = ArrayElement<ListsQuery>;
 export type NoteItem = ListNotesItem['notes'][0];
-export type ListNotesItem = {
-  id: number;
-  name: string;
-  notes: {
-    id: number;
-    label: string;
-    rank: number;
-    modified_at: string;
-    latest_detail: {
-      description: string;
-      created_at: string;
-    };
-  }[];
-};
 
 export const { useGetListsQuery, useGetListNotesQuery, useLogInMutation } = supabaseApi;

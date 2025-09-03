@@ -1,6 +1,6 @@
 type Theme = { light: string; dark: string };
 
-export type Colors = {
+type Colors = {
   // Tailwind colors
   background: Theme;
   foreground: Theme;

@@ -1,0 +1,9 @@
+name: Create Preview Builds (Android)
+
+jobs:
+  build_android:
+    type: build
+    environment: preview
+    params:
+      platform: android
+      

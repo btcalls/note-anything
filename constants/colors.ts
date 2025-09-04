@@ -1,7 +1,8 @@
 type Theme = { light: string; dark: string };
 
-type Colors = {
+export type Colors = {
   // Tailwind colors
+  brand: Theme;
   background: Theme;
   foreground: Theme;
   card: Theme;
@@ -29,11 +30,8 @@ type Colors = {
   tabIconSelected: Theme;
 };
 
-const BrandColors: { [k: string]: Theme } = {
-  brand: { light: 'hsl(13, 87.8%, 48%)', dark: 'hsl(13, 87.8%, 48%)' },
-};
-
 const AppColors: Colors = {
+  brand: { light: 'hsl(13, 87.8%, 48%)', dark: 'hsl(13, 87.8%, 48%)' },
   background: { light: 'hsl(0 0% 100%)', dark: 'hsl(200 6.67% 8.82%)' },
   foreground: { light: 'hsl(240 10% 3.9%)', dark: 'hsl(0 0% 98%)' },
   card: { light: 'hsl(0 0% 100%)', dark: 'hsl(240 10% 3.9%)' },
@@ -87,5 +85,4 @@ module.exports = {
   ColorsToConfig,
   ColorsToPlugin,
   AppColors,
-  BrandColors,
 };

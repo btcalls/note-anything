@@ -3,7 +3,7 @@ import convert from 'color-convert';
 import { Colors } from '~/constants/colors';
 import { useColorScheme } from '~/hooks/useColorScheme';
 
-const { AppColors, BrandColors } = require('../constants/colors');
+const { AppColors } = require('../constants/colors');
 
 function toRGB(color: string) {
   const hslValues = color
@@ -15,12 +15,8 @@ function toRGB(color: string) {
   return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
-export default function useAppColor(color: keyof Colors | keyof typeof BrandColors) {
+export default function useAppColor(color: keyof Colors) {
   const { colorScheme: theme } = useColorScheme();
-
-  if (color in BrandColors) {
-    return toRGB(BrandColors[color as keyof typeof BrandColors][theme]);
-  }
 
   if (color in AppColors) {
     return toRGB(AppColors[color as keyof Colors][theme]);

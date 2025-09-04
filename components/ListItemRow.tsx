@@ -24,7 +24,7 @@ export default function ListItemRow({ item, className }: Props) {
         {item.tags.map((tag) => (
           <Text
             key={tag.name}
-            className="px-2 py-1 rounded-md color-white bg-red-400 dark:bg-red-500 w-fit font-medium"
+            className="px-2 py-1 rounded-md color-white bg-brand w-fit font-medium"
           >
             {tag.name}
           </Text>

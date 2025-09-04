@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 
+import BottomRightButton from '~/components/BottomRightButton';
 import ListItemRow from '~/components/ListItemRow';
 import { ThemedText } from '~/components/ThemedText';
 import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
@@ -27,17 +28,21 @@ export default function HomeScreen() {
   }
 
   return (
-    <FlatList
-      contentContainerClassName="gap-3 mt-4"
-      data={data}
-      keyExtractor={(item) => `${item.id}`}
-      renderItem={renderItem}
-      contentInsetAdjustmentBehavior="automatic"
-      // Optimize FlatList performance
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
-      removeClippedSubviews
-    />
+    <>
+      <FlatList
+        contentContainerClassName="gap-3 mt-4"
+        data={data}
+        keyExtractor={(item) => `${item.id}`}
+        renderItem={renderItem}
+        contentInsetAdjustmentBehavior="automatic"
+        // Optimize FlatList performance
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
+        removeClippedSubviews
+      />
+
+      <BottomRightButton icon="plus" />
+    </>
   );
 }

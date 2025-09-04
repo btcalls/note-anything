@@ -16,7 +16,9 @@ export default function ListItemRow({ item, className }: Props) {
       href={{ pathname: '/lists/[id]', params: { id: item.id } }}
     >
       <View className="flex-row items-center justify-between">
-        <ThemedText type="title">{item.name}</ThemedText>
+        <ThemedText type="title" numberOfLines={2} lineBreakMode="tail" className="flex-1 mr-4">
+          {item.name}
+        </ThemedText>
         <ThemedText type="details">{new Date(item.modified_at).toLocaleDateString()}</ThemedText>
       </View>
 

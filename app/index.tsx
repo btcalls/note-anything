@@ -7,14 +7,20 @@ import { ThemedText } from '~/components/ThemedText';
 import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
 
-const ITEM_HEIGHT = 300;
+const ITEM_HEIGHT = 90;
+// NOTE: Workaround for Tailwind CSS arbitrary value support.
+// See https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support
+const ITEM_HEIGHT_CLASS = 'min-h-[90px]';
 
 export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
 
   const renderItem = useCallback(
     ({ item }: { item: ListItem }) => (
-      <ListItemRow className="p-4 mx-2 rounded-lg shadow-sm shadow-label/35" item={item} />
+      <ListItemRow
+        className={`p-4 mx-2 rounded-lg shadow-sm shadow-label/35 h- ${ITEM_HEIGHT_CLASS}`}
+        item={item}
+      />
     ),
     []
   );

@@ -13,6 +13,7 @@ const listsQuery = supabase
     id,
     name,
     tags (
+      id,
       name
     ),
     modified_at
@@ -42,6 +43,7 @@ const notesQuery = (listId: number) =>
     .order('created_at', { referencedTable: 'notes.latest_detail', ascending: false })
     .limit(1, { foreignTable: 'notes.latest_detail' })
     .single();
+const tagsQuery = supabase.from('tags').select('*');
 
 type ListsQuery = QueryData<typeof listsQuery>;
 type ListNotesItem = {
@@ -58,11 +60,13 @@ type ListNotesItem = {
     };
   }[];
 };
+type TagsQuery = QueryData<typeof tagsQuery>;
 
 export const supabaseApi = createApi({
   reducerPath: 'supabaseApi',
   baseQuery: fakeBaseQuery<SupabaseQueryError>(),
   endpoints: (builder) => ({
+    // Mutations
     logIn: builder.mutation<boolean, { email: string; password: string }>({
       queryFn: async ({ email, password }) => {
         const { error } = await supabase.auth.signInWithPassword({
@@ -77,6 +81,8 @@ export const supabaseApi = createApi({
         return { data: true };
       },
     }),
+
+    // Queries
     getLists: builder.query<ListsQuery, void>({
       queryFn: async () => {
         const { data, error } = await listsQuery;
@@ -105,6 +111,17 @@ export const supabaseApi = createApi({
         return { data: { ...data, notes } };
       },
     }),
+    getTags: builder.query<TagsQuery, void>({
+      queryFn: async () => {
+        const { data, error } = await tagsQuery;
+
+        if (error) {
+          return { error: { code: error.code, message: error.message } };
+        }
+
+        return { data };
+      },
+    }),
   }),
 });
 
@@ -112,5 +129,7 @@ export const supabaseApi = createApi({
 export type SupabaseQueryError = { code: string; message: string };
 export type ListItem = ArrayElement<ListsQuery>;
 export type NoteItem = ListNotesItem['notes'][0];
+export type TagItem = ArrayElement<TagsQuery>;
 
-export const { useGetListsQuery, useGetListNotesQuery, useLogInMutation } = supabaseApi;
+export const { useLogInMutation, useGetListsQuery, useGetListNotesQuery, useGetTagsQuery } =
+  supabaseApi;

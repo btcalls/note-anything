@@ -1,8 +1,10 @@
-import { Text, View, type ViewProps } from 'react-native';
+import { View, type ViewProps } from 'react-native';
 
 import { ListItem } from '~/lib/supabase/supabaseAPI';
+import { cn } from '~/lib/utils';
 
 import PressableLink from './PressableLink';
+import TagsRow from './TagsRow';
 import { ThemedText } from './ThemedText';
 
 type Props = Pick<ViewProps, 'className'> & {
@@ -10,9 +12,14 @@ type Props = Pick<ViewProps, 'className'> & {
 };
 
 export default function ListItemRow({ item, className }: Props) {
+  const linkStyle = cn({
+    'gap-2': true,
+    [`${className}`]: !!className,
+  });
+
   return (
     <PressableLink
-      className={className}
+      className={linkStyle}
       href={{ pathname: '/lists/[id]', params: { id: item.id } }}
     >
       <View className="flex-row items-center justify-between">
@@ -22,16 +29,7 @@ export default function ListItemRow({ item, className }: Props) {
         <ThemedText type="details">{new Date(item.modified_at).toLocaleDateString()}</ThemedText>
       </View>
 
-      <View className="mt-2 flex-row flex-wrap gap-2">
-        {item.tags.map((tag) => (
-          <Text
-            key={tag.name}
-            className="px-2 py-1 rounded-md color-white bg-brand w-fit font-medium"
-          >
-            {tag.name}
-          </Text>
-        ))}
-      </View>
+      <TagsRow tags={item.tags} />
     </PressableLink>
   );
 }

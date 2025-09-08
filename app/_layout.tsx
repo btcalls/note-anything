@@ -65,7 +65,18 @@ function GuardedStack() {
           }}
         />
         <Stack.Screen name="lists/[id]" options={{ title: '', headerLargeTitle: true }} />
+        <Stack.Screen
+          name="lists/new"
+          options={{
+            title: 'Create List',
+            presentation: 'formSheet',
+            sheetAllowedDetents: 'fitToContents',
+            // gestureEnabled: false,
+            headerBackButtonDisplayMode: 'minimal',
+          }}
+        />
       </Stack.Protected>
+
       <Stack.Protected guard={!isLoggedIn}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       </Stack.Protected>

@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 
@@ -14,11 +15,12 @@ const ITEM_HEIGHT_CLASS = 'min-h-[90px]';
 
 export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
+  const router = useRouter();
 
   const renderItem = useCallback(
     ({ item }: { item: ListItem }) => (
       <ListItemRow
-        className={`p-4 mx-2 rounded-lg shadow-sm shadow-label/35 h- ${ITEM_HEIGHT_CLASS}`}
+        className={`p-4 mx-2 rounded-lg shadow-sm shadow-label/35 ${ITEM_HEIGHT_CLASS}`}
         item={item}
       />
     ),
@@ -36,7 +38,7 @@ export default function HomeScreen() {
   return (
     <>
       <FlatList
-        contentContainerClassName="gap-3 mt-4"
+        contentContainerClassName="gap-4 mt-4"
         data={data}
         keyExtractor={(item) => `${item.id}`}
         renderItem={renderItem}
@@ -48,7 +50,7 @@ export default function HomeScreen() {
         removeClippedSubviews
       />
 
-      <BottomRightButton icon="plus" />
+      <BottomRightButton icon="plus" onPress={() => router.navigate('/lists/new')} />
     </>
   );
 }

@@ -1,25 +1,57 @@
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { ThemedText } from '~/components/ThemedText';
+import { FormField } from '~/components/FormField';
 import { ThemedView } from '~/components/ThemedView';
 
+type FormData = {
+  name: string;
+  tags: number[];
+};
+
 export default function ListModal() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      name: '',
+      tags: [],
+    },
+  });
+  const onSubmit = (data: FormData) => console.log(data);
+
   return (
     <ThemedView className="items-center justify-end h-80 p-4 gap-4">
-      <ThemedText type="subtitle" className="justify-start w-full flex-1">
-        Tags
-      </ThemedText>
+      <FormField<FormData>
+        name="name"
+        control={control}
+        rules={{ required: true, minLength: 3, maxLength: 25 }}
+        error={errors.name}
+        label="Your List Is..."
+        placeholder="e.g. My Favorites"
+        autoFocus
+        clearButtonMode="while-editing"
+        enterKeyHint="done"
+        autoCorrect={false}
+      />
+
+      <View className="flex-1" />
 
       <View className="flex-row gap-4 h-16">
         <TouchableOpacity
-          className="flex-1 bg-red-600 rounded-xl items-center justify-center shadow-sm shadow-label/35"
+          className="flex-1 bg-red-600 rounded-xl items-center justify-center"
           onPress={() => router.back()}
         >
           <Text className="font-semibold text-lg text-white">Cancel</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="flex-1 rounded-xl bg-background border-foreground border-2 items-center justify-center shadow-sm shadow-label/35">
+        <TouchableOpacity
+          className="flex-1 rounded-xl bg-background border-foreground border-2 items-center justify-center"
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text className="font-semibold text-lg text-foreground">Create!</Text>
         </TouchableOpacity>
       </View>

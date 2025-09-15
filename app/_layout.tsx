@@ -71,7 +71,7 @@ function GuardedStack() {
             title: 'Create List',
             presentation: 'formSheet',
             sheetAllowedDetents: 'fitToContents',
-            // gestureEnabled: false,
+            gestureEnabled: false,
             headerBackButtonDisplayMode: 'minimal',
           }}
         />

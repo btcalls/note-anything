@@ -17,7 +17,7 @@ interface FormFieldProps<T extends FieldValues>
   error?: FieldError | undefined;
 }
 
-export function FormField<T extends FieldValues>({
+export default function FormField<T extends FieldValues>({
   name,
   control,
   rules,

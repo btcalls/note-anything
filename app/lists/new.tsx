@@ -2,8 +2,10 @@ import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { FormField } from '~/components/FormField';
+import FormField from '~/components/FormField';
+import EditableTagsRow from '~/components/lists/tags/EditableTagsRow';
 import { ThemedView } from '~/components/ThemedView';
+import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
 type FormData = {
   name: string;
@@ -21,10 +23,12 @@ export default function ListModal() {
       tags: [],
     },
   });
+  const { data: tags } = useGetTagsQuery();
+
   const onSubmit = (data: FormData) => console.log(data);
 
   return (
-    <ThemedView className="items-center justify-end h-80 p-4 gap-4">
+    <ThemedView className="items-start justify-end py-8 px-4 gap-4">
       <FormField<FormData>
         name="name"
         control={control}
@@ -37,6 +41,8 @@ export default function ListModal() {
         enterKeyHint="done"
         autoCorrect={false}
       />
+
+      {tags && <EditableTagsRow tags={tags} label="Which is About..." />}
 
       <View className="flex-1" />
 

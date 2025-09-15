@@ -71,18 +71,14 @@ function mapColors(colors: { [k: string]: string }) {
   );
 }
 
-const ColorsToConfig = Object.assign(
+export const ColorsToConfig = Object.assign(
   {},
   ...Object.entries(getAppColors('light')).map(([key]) => ({ [key]: `hsl(var(--${key}))` }))
 );
 
-const ColorsToPlugin = {
+export const ColorsToPlugin = {
   ':root': mapColors(getAppColors('light')),
   '.dark:root': mapColors(getAppColors('dark')),
 };
 
-module.exports = {
-  ColorsToConfig,
-  ColorsToPlugin,
-  AppColors,
-};
+export { AppColors };

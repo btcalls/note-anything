@@ -46,12 +46,12 @@ export default function ListModal() {
 
       <View className="flex-1" />
 
-      <View className="flex-row gap-4 h-16">
+      <View className="flex-row gap-4 pt-6 border-t border-gray-500">
         <TouchableOpacity
-          className="flex-1 bg-red-600 rounded-xl items-center justify-center"
+          className="flex-1 border-2 border-destructive bg-destructive rounded-xl items-center justify-center h-14"
           onPress={() => router.back()}
         >
-          <Text className="font-semibold text-lg text-white">Cancel</Text>
+          <Text className="font-semibold text-lg text-destructiveForeground">Cancel</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

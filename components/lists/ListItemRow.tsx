@@ -14,7 +14,7 @@ type Props = Pick<ViewProps, 'className'> & {
 
 export default function ListItemRow({ item, className }: Props) {
   const linkStyle = cn({
-    'gap-2': true,
+    'gap-2 p-4 mx-4 rounded-lg shadow-sm shadow-label/35': true,
     [`${className}`]: !!className,
   });
 

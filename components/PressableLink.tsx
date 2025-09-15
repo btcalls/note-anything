@@ -18,7 +18,6 @@ export default function PressableLink({
         {({ pressed }) => (
           <View
             className={cn({
-              'py-4 px-5': true,
               'bg-background': !pressed,
               'bg-background/80': pressed,
               [`${className}`]: !!className,

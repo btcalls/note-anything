@@ -18,12 +18,7 @@ export default function HomeScreen() {
   const router = useRouter();
 
   const renderItem = useCallback(
-    ({ item }: { item: ListItem }) => (
-      <ListItemRow
-        className={`p-4 mx-2 rounded-lg shadow-sm shadow-label/35 ${ITEM_HEIGHT_CLASS}`}
-        item={item}
-      />
-    ),
+    ({ item }: { item: ListItem }) => <ListItemRow className={ITEM_HEIGHT_CLASS} item={item} />,
     []
   );
 

@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import FormField from '~/components/FormField';
+import FormTextInput from '~/components/forms/FormTextInput';
 import EditableTagsRow from '~/components/lists/tags/EditableTagsRow';
 import { ThemedView } from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
@@ -29,7 +29,7 @@ export default function ListModal() {
 
   return (
     <ThemedView className="items-start justify-end gap-4 px-4 py-8">
-      <FormField<FormData>
+      <FormTextInput<FormData>
         name="name"
         control={control}
         rules={{ required: true, minLength: 3, maxLength: 25 }}

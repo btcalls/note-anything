@@ -34,3 +34,19 @@ export default function ListItemRow({ item, className }: Props) {
     </PressableLink>
   );
 }
+
+export function SkeletonListItemRow() {
+  return (
+    <View className="justify-center gap-2 p-4 mx-4 rounded-lg shadow-sm shadow-label/35 bg-background h-[90px]">
+      <View className="flex-row items-center justify-between">
+        <View className="h-8 bg-gray-200 dark:bg-gray-700 rounded-md w-2/4 animate-pulse" />
+        <View className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-16 animate-pulse" />
+      </View>
+
+      <View className="flex-row gap-2">
+        <View className="h-6 rounded-md bg-gray-200 dark:bg-gray-700 w-20 animate-pulse" />
+        <View className="h-6 rounded-md bg-gray-200 dark:bg-gray-700 w-14 animate-pulse" />
+      </View>
+    </View>
+  );
+}

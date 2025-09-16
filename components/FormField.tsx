@@ -31,7 +31,7 @@ export default function FormField<T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field: { onChange, onBlur, ref, value } }) => (
-        <View className="w-full gap-2 items-center">
+        <View className="w-full items-center gap-2">
           {label && (
             <ThemedText type="subtitle" className="w-full">
               {label}
@@ -44,7 +44,7 @@ export default function FormField<T extends FieldValues>({
             value={value}
             ref={ref}
             className={cn({
-              'w-full border border-gray-400 h-16 px-4 rounded-lg': true,
+              'h-16 w-full rounded-lg border border-gray-400 px-4': true,
               'border-2 border-red-500': !!error,
             })}
             {...inputProps}

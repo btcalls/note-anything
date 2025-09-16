@@ -17,9 +17,9 @@ export default function SelectableTagPill({ tag, onToggle }: Props) {
     <TouchableOpacity onPress={() => onToggle({ ...tag, isSelected: !tag.isSelected })}>
       <Text
         className={cn({
-          'px-4 py-2 rounded-md w-fit font-semibold text-lg': true,
+          'w-fit rounded-md px-4 py-2 text-lg font-semibold': true,
           'border border-label text-label': !tag.isSelected,
-          'color-white border border-brand bg-brand': tag.isSelected,
+          'border border-brand bg-brand color-white': tag.isSelected,
         })}
       >
         {tag.name}

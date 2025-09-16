@@ -15,7 +15,7 @@ export default function BottomRightButton({ icon, onPress }: Props) {
 
   return (
     <TouchableOpacity
-      className="rounded-full p-4 text-xl bg-brand z-10 absolute bottom-14 right-6 shadow"
+      className="absolute bottom-14 right-6 z-10 rounded-full bg-brand p-4 text-xl shadow"
       onPress={onPress}
     >
       <IconSymbol name={icon} size={30} color={tint} />

@@ -1,10 +1,10 @@
 import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 
 import BottomRightButton from '~/components/BottomRightButton';
 import { ThemedText } from '~/components/ThemedText';
-import ListItemRow from '~/components/lists/ListItemRow';
+import ListItemRow, { SkeletonListItemRow } from '~/components/lists/ListItemRow';
 import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
 
@@ -18,19 +18,24 @@ export default function HomeScreen() {
   const router = useRouter();
 
   const renderItem = useCallback(
-    ({ item }: { item: ListItem }) => (
-      <ListItemRow
-        className={`p-4 mx-2 rounded-lg shadow-sm shadow-label/35 ${ITEM_HEIGHT_CLASS}`}
-        item={item}
-      />
-    ),
+    ({ item }: { item: ListItem }) => <ListItemRow className={ITEM_HEIGHT_CLASS} item={item} />,
     []
   );
+  const renderSkeleton = useCallback(() => <SkeletonListItemRow />, []);
 
   if (isLoading) {
-    return <ActivityIndicator className="h-full" size="large" />;
+    return (
+      <FlatList
+        contentContainerClassName="gap-4 mt-4"
+        data={[1, 2]}
+        keyExtractor={(item) => `${item}`}
+        renderItem={renderSkeleton}
+        contentInsetAdjustmentBehavior="automatic"
+      />
+    );
   }
 
+  // TODO: Error screen
   if (error) {
     return <ThemedText>{error.message ?? 'Failed fetching lists.'}</ThemedText>;
   }

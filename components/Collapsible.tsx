@@ -27,7 +27,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
 
         <ThemedText type="defaultSemiBold">{title}</ThemedText>
       </TouchableOpacity>
-      {isOpen && <ThemedView className="py-4 ml-7">{children}</ThemedView>}
+      {isOpen && <ThemedView className="ml-7 py-4">{children}</ThemedView>}
     </ThemedView>
   );
 }

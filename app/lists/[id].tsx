@@ -22,7 +22,7 @@ export default function DetailsScreen() {
 
   const renderItem = useCallback(
     ({ item }: { item: NoteItem }) => (
-      <ThemedView className="p-4 border-b border-slate-500/30">
+      <ThemedView className="border-b border-slate-500/30 p-4">
         <ThemedText type="subtitle">{item.label}</ThemedText>
         <ThemedText type="details" lineBreakMode="tail" numberOfLines={1}>
           {item.latest_detail.description}

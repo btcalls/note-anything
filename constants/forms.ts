@@ -1,0 +1,16 @@
+import type { Control, FieldError, FieldValues, Path, RegisterOptions } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
+
+export interface BaseFormComponentProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
+  rules?:
+    | Omit<RegisterOptions<T, Path<T>>, 'setValueAs' | 'disabled' | 'valueAsNumber' | 'valueAsDate'>
+    | undefined;
+  label?: string;
+  error?: FieldError | undefined;
+}
+
+export interface FormTextInputProps<T extends FieldValues>
+  extends BaseFormComponentProps<T>,
+    Omit<TextInputProps, 'onChange' | 'onChangeText' | 'onBlur' | 'ref'> {}

@@ -28,7 +28,7 @@ export default function ListModal() {
   const onSubmit = (data: FormData) => console.log(data);
 
   return (
-    <ThemedView className="items-start justify-end py-8 px-4 gap-4">
+    <ThemedView className="items-start justify-end gap-4 px-4 py-8">
       <FormField<FormData>
         name="name"
         control={control}
@@ -46,19 +46,13 @@ export default function ListModal() {
 
       <View className="flex-1" />
 
-      <View className="flex-row gap-4 pt-6 border-t border-gray-400">
-        <TouchableOpacity
-          className="flex-1 border-2 border-destructive bg-destructive rounded-xl items-center justify-center h-14"
-          onPress={() => router.back()}
-        >
-          <Text className="font-semibold text-lg text-destructiveForeground">Cancel</Text>
+      <View className="flex-row gap-4 border-t border-gray-400 pt-6">
+        <TouchableOpacity className="btn-cancel" onPress={() => router.back()}>
+          <Text className="text-lg font-semibold text-destructiveForeground">Cancel</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          className="flex-1 rounded-xl bg-background border-foreground border-2 items-center justify-center"
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text className="font-semibold text-lg text-foreground">Create!</Text>
+        <TouchableOpacity className="btn-form" onPress={handleSubmit(onSubmit)}>
+          <Text className="text-lg font-semibold text-foreground">Create!</Text>
         </TouchableOpacity>
       </View>
     </ThemedView>

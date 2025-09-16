@@ -33,5 +33,26 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), ({ addBase }) => addBase(ColorsToPlugin)],
+  plugins: [
+    require('tailwindcss-animate'),
+    ({ addBase }) => addBase(ColorsToPlugin),
+    ({ addUtilities }) => {
+      // NOTE: For custom utilities to be picked up by IntelliSense
+      addUtilities({
+        '.skeleton': {
+          '@apply animate-pulse rounded-md bg-gray-200 dark:bg-gray-700': {},
+        },
+
+        '.btn-form': {
+          '@apply h-14 flex-1 items-center justify-center rounded-xl border-2 border-foreground bg-background':
+            {},
+        },
+
+        '.btn-cancel': {
+          '@apply h-14 flex-1 items-center justify-center rounded-xl border-2 border-destructive bg-destructive':
+            {},
+        },
+      });
+    },
+  ],
 };

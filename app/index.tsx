@@ -15,12 +15,7 @@ export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
   const router = useRouter();
 
-  const renderItem = useCallback(
-    ({ item }: { item: ListItem }) => (
-      <ListItemRow className={LIST_ITEM_HEIGHT.className} item={item} />
-    ),
-    []
-  );
+  const renderItem = useCallback(({ item }: { item: ListItem }) => <ListItemRow item={item} />, []);
   const renderSkeleton = useCallback(() => <SkeletonListItemRow />, []);
 
   if (isLoading) {

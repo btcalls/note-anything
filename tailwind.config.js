@@ -40,10 +40,13 @@ module.exports = {
       // NOTE: For custom utilities to be picked up by IntelliSense
       addUtilities({
         '.card': {
-          '@apply gap-2 p-4 mx-4 rounded-lg shadow-sm shadow-label/35 bg-background': {},
+          '@apply gap-2 p-4 mx-4 rounded-lg shadow-default bg-background': {},
         },
         '.skeleton': {
           '@apply animate-pulse rounded-md bg-gray-200 dark:bg-gray-700': {},
+        },
+        '.shadow-default': {
+          '@apply shadow-sm shadow-label/35': {},
         },
         // Buttons
         '.btn-form': {

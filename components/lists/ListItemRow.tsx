@@ -15,7 +15,7 @@ type Props = Pick<ViewProps, 'className'> & {
 
 export default function ListItemRow({ item, className }: Props) {
   const linkStyle = cn({
-    'gap-2 p-4 mx-4 rounded-lg shadow-sm shadow-label/35': true,
+    [`card ${LIST_ITEM_HEIGHT.className}`]: true,
     [`${className}`]: !!className,
   });
 
@@ -40,7 +40,7 @@ export function SkeletonListItemRow() {
   return (
     <View
       className={cn({
-        'mx-4 justify-center gap-2 rounded-lg bg-background p-4 shadow-sm shadow-label/35': true,
+        'justify-center card': true,
         [`${LIST_ITEM_HEIGHT.className}`]: true,
       })}
     >

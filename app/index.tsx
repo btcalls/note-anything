@@ -5,34 +5,26 @@ import { FlatList } from 'react-native';
 import BottomRightButton from '~/components/BottomRightButton';
 import { ThemedText } from '~/components/ThemedText';
 import ListItemRow, { SkeletonListItemRow } from '~/components/lists/ListItemRow';
-import { ListItem, useGetListsQuery } from '~/lib/supabase/supabaseAPI';
+import SkeletonList from '~/components/skeleton/SkeletonList';
+import { LIST_ITEM_HEIGHT } from '~/lib/constants';
+import type { ListItem } from '~/lib/supabase/supabaseAPI';
+import { useGetListsQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
-
-const ITEM_HEIGHT = 90;
-// NOTE: Workaround for Tailwind CSS arbitrary value support.
-// See https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support
-const ITEM_HEIGHT_CLASS = 'min-h-[90px]';
 
 export default function HomeScreen() {
   const { data, error, isLoading } = useGetListsQuery();
   const router = useRouter();
 
   const renderItem = useCallback(
-    ({ item }: { item: ListItem }) => <ListItemRow className={ITEM_HEIGHT_CLASS} item={item} />,
+    ({ item }: { item: ListItem }) => (
+      <ListItemRow className={LIST_ITEM_HEIGHT.className} item={item} />
+    ),
     []
   );
   const renderSkeleton = useCallback(() => <SkeletonListItemRow />, []);
 
   if (isLoading) {
-    return (
-      <FlatList
-        contentContainerClassName="gap-4 mt-4"
-        data={[1, 2]}
-        keyExtractor={(item) => `${item}`}
-        renderItem={renderSkeleton}
-        contentInsetAdjustmentBehavior="automatic"
-      />
-    );
+    return <SkeletonList length={2} renderItem={renderSkeleton} />;
   }
 
   // TODO: Error screen
@@ -51,7 +43,7 @@ export default function HomeScreen() {
         // Optimize FlatList performance
         initialNumToRender={10}
         maxToRenderPerBatch={10}
-        getItemLayout={(_, index) => getItemLayout(ITEM_HEIGHT, index)}
+        getItemLayout={(_, index) => getItemLayout(LIST_ITEM_HEIGHT.value, index)}
         removeClippedSubviews
       />
 

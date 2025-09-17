@@ -1,5 +1,6 @@
 import { View, type ViewProps } from 'react-native';
 
+import { LIST_ITEM_HEIGHT } from '~/lib/constants';
 import { ListItem } from '~/lib/supabase/supabaseAPI';
 import { cn } from '~/lib/utils';
 
@@ -37,7 +38,12 @@ export default function ListItemRow({ item, className }: Props) {
 
 export function SkeletonListItemRow() {
   return (
-    <View className="mx-4 h-[90px] justify-center gap-2 rounded-lg bg-background p-4 shadow-sm shadow-label/35">
+    <View
+      className={cn({
+        'mx-4 justify-center gap-2 rounded-lg bg-background p-4 shadow-sm shadow-label/35': true,
+        [`${LIST_ITEM_HEIGHT.className}`]: true,
+      })}
+    >
       <View className="flex-row items-center justify-between">
         <View className="h-8 w-2/4 skeleton" />
         <View className="h-4 w-16 skeleton" />

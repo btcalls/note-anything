@@ -5,7 +5,7 @@ import { ListItem } from '~/lib/supabase/supabaseAPI';
 import { cn } from '~/lib/utils';
 
 import PressableLink from '../PressableLink';
-import { ThemedText } from '../ThemedText';
+import ThemedText from '../ThemedText';
 
 import TagsRow from './tags/TagsRow';
 

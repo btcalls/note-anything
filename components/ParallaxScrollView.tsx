@@ -6,7 +6,7 @@ import Animated, {
   useScrollViewOffset,
 } from 'react-native-reanimated';
 
-import { ThemedView } from '~/components/ThemedView';
+import ThemedView from '~/components/ThemedView';
 import { useBottomTabOverflow } from '~/components/ui/TabBarBackground';
 import { cn } from '~/lib/utils';
 
@@ -51,7 +51,7 @@ export default function ParallaxScrollView({ children, headerImage, headerBGClas
         <Animated.View className={headerBGStyles} style={headerAnimatedStyle}>
           {headerImage}
         </Animated.View>
-        <ThemedView className="flex-1 p-8 gap-4 overflow-hidden">{children}</ThemedView>
+        <ThemedView className="flex-1 gap-4 overflow-hidden p-8">{children}</ThemedView>
       </Animated.ScrollView>
     </ThemedView>
   );

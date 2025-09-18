@@ -7,12 +7,19 @@ import * as yup from 'yup';
 import FormTagsRow from '~/components/forms/FormTagsRow';
 import FormTextInput from '~/components/forms/FormTextInput';
 import SkeletonTagsRow from '~/components/skeleton/SkeletonTagsRow';
-import { ThemedView } from '~/components/ThemedView';
+import ThemedView from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
 const schema = yup.object({
-  name: yup.string().min(3).required(),
-  tags: yup.array().of(yup.number().positive().integer().required()).min(1).required(),
+  name: yup
+    .string()
+    .min(4, 'Must be at least ${min} characters.')
+    .required('You must provide a name for your list.'),
+  tags: yup
+    .array()
+    .of(yup.number().positive().integer().required('At least one tag is needed.'))
+    .min(1)
+    .required(),
 });
 
 type FormData = yup.InferType<typeof schema>;

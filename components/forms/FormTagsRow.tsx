@@ -1,7 +1,7 @@
 import { Controller, FieldValues } from 'react-hook-form';
 import { View, ViewProps } from 'react-native';
 
-import { ThemedText } from '~/components/ThemedText';
+import ThemedText from '~/components/ThemedText';
 import type { FormTagsProps } from '~/constants/types';
 import { cn } from '~/lib/utils';
 

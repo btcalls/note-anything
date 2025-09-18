@@ -8,18 +8,19 @@ export type SelectableTagItem = TagItem & {
 };
 
 type Props = {
-  tag: SelectableTagItem;
-  onToggle: (tag: SelectableTagItem) => void;
+  tag: TagItem;
+  isSelected: boolean;
+  onToggle: (tagId: number, isSelected: boolean) => void;
 };
 
-export default function SelectableTagPill({ tag, onToggle }: Props) {
+export default function SelectableTagPill({ tag, isSelected, onToggle }: Props) {
   return (
-    <TouchableOpacity onPress={() => onToggle({ ...tag, isSelected: !tag.isSelected })}>
+    <TouchableOpacity onPress={() => onToggle(tag.id, !isSelected)}>
       <Text
         className={cn({
           'w-fit rounded-md px-4 py-2 text-lg font-semibold': true,
-          'border border-label text-label': !tag.isSelected,
-          'border border-brand bg-brand color-white': tag.isSelected,
+          'border border-label text-label': !isSelected,
+          'border border-brand bg-brand color-white': isSelected,
         })}
       >
         {tag.name}

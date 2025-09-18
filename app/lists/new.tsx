@@ -2,8 +2,8 @@ import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import FormTagsRow from '~/components/forms/FormTagsRow';
 import FormTextInput from '~/components/forms/FormTextInput';
-import EditableTagsRow from '~/components/lists/tags/EditableTagsRow';
 import { ThemedView } from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
@@ -42,7 +42,15 @@ export default function ListModal() {
         autoCorrect={false}
       />
 
-      {tags && <EditableTagsRow tags={tags} label="Which is About..." />}
+      {tags && (
+        <FormTagsRow<FormData>
+          name="tags"
+          control={control}
+          rules={{ minLength: 1 }}
+          tags={tags}
+          label="Which is About..."
+        />
+      )}
 
       <View className="flex-1" />
 

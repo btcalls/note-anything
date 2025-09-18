@@ -1,6 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
+import * as yup from 'yup';
 
 import FormTagsRow from '~/components/forms/FormTagsRow';
 import FormTextInput from '~/components/forms/FormTextInput';
@@ -8,10 +10,12 @@ import SkeletonTagsRow from '~/components/skeleton/SkeletonTagsRow';
 import { ThemedView } from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
-type FormData = {
-  name: string;
-  tags: number[];
-};
+const schema = yup.object({
+  name: yup.string().min(3).required(),
+  tags: yup.array().of(yup.number().positive().integer().required()).min(1).required(),
+});
+
+type FormData = yup.InferType<typeof schema>;
 
 export default function ListModal() {
   const {
@@ -23,17 +27,18 @@ export default function ListModal() {
       name: '',
       tags: [],
     },
+    resolver: yupResolver(schema),
   });
   const { data: tags, isLoading } = useGetTagsQuery();
 
   const onSubmit = (data: FormData) => console.log(data);
 
+  // TODO: Handle errors
   return (
     <ThemedView className="items-start justify-end gap-4 px-4 py-8">
       <FormTextInput<FormData>
         name="name"
         control={control}
-        rules={{ required: true, minLength: 3, maxLength: 25 }}
         error={errors.name}
         label="Your List Is..."
         placeholder="e.g. My Favorites"
@@ -50,7 +55,6 @@ export default function ListModal() {
           <FormTagsRow<FormData>
             name="tags"
             control={control}
-            rules={{ required: true, minLength: 1 }}
             tags={tags}
             label="Which is About..."
           />

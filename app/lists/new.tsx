@@ -11,25 +11,18 @@ import ThemedView from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
 const schema = yup.object({
-  name: yup
-    .string()
-    .min(4, 'Must be at least ${min} characters.')
-    .required('You must provide a name for your list.'),
+  name: yup.string().min(4, 'At least ${min} characters to describe your list.').required(),
   tags: yup
     .array()
-    .of(yup.number().positive().integer().required('At least one tag is needed.'))
-    .min(1)
+    .of(yup.number().positive().integer().required())
+    .min(1, 'Add a bit of flair to it.')
     .required(),
 });
 
 type FormData = yup.InferType<typeof schema>;
 
 export default function ListModal() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       name: '',
       tags: [],
@@ -46,9 +39,8 @@ export default function ListModal() {
       <FormTextInput<FormData>
         name="name"
         control={control}
-        error={errors.name}
         label="Your List Is..."
-        placeholder="e.g. My Favorites"
+        placeholder="e.g. Trips"
         autoFocus
         clearButtonMode="while-editing"
         enterKeyHint="done"
@@ -62,8 +54,8 @@ export default function ListModal() {
           <FormTagsRow<FormData>
             name="tags"
             control={control}
-            tags={tags}
             label="Which is About..."
+            tags={tags}
           />
         )
       )}

@@ -1,4 +1,4 @@
-import { Controller, FieldValues } from 'react-hook-form';
+import { Controller, FieldValues, useController } from 'react-hook-form';
 import { View, ViewProps } from 'react-native';
 
 import ThemedText from '~/components/ThemedText';
@@ -7,16 +7,21 @@ import { cn } from '~/lib/utils';
 
 import SelectableTagPill from '../lists/tags/SelectableTagPill';
 
+import ErrorText from './ErrorText';
+
 type Props<T extends FieldValues> = FormTagsProps<T> & Pick<ViewProps, 'className'>;
 
 export default function FormTagsRow<T extends FieldValues>({
   name,
   control,
   rules,
-  tags,
   label,
+  tags,
   className,
 }: Props<T>) {
+  const {
+    fieldState: { error },
+  } = useController({ name, control });
   const viewStyle = cn({
     'flex-1 gap-2': true,
     [`${className}`]: !!className,
@@ -56,6 +61,8 @@ export default function FormTagsRow<T extends FieldValues>({
               />
             ))}
           </View>
+
+          <ErrorText error={error?.message} />
         </View>
       )}
     />

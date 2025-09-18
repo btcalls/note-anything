@@ -1,4 +1,4 @@
-import type { Control, FieldError, FieldValues, Path, RegisterOptions } from 'react-hook-form';
+import type { Control, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 
 import type { TagItem } from '~/lib/supabase/supabaseAPI';
@@ -11,7 +11,6 @@ export interface BaseFormComponentProps<T extends FieldValues> {
     | Omit<RegisterOptions<T, Path<T>>, 'setValueAs' | 'disabled' | 'valueAsNumber' | 'valueAsDate'>
     | undefined;
   label?: string;
-  error?: FieldError | undefined;
 }
 
 export interface FormTextInputProps<T extends FieldValues>

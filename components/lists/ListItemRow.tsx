@@ -35,24 +35,3 @@ export default function ListItemRow({ item, className }: Props) {
     </PressableLink>
   );
 }
-
-export function SkeletonListItemRow() {
-  return (
-    <View
-      className={cn({
-        'justify-center card': true,
-        [`${LIST_ITEM_HEIGHT.className}`]: true,
-      })}
-    >
-      <View className="flex-row items-center justify-between">
-        <View className="h-8 w-2/4 skeleton" />
-        <View className="h-4 w-16 skeleton" />
-      </View>
-
-      <View className="flex-row gap-2">
-        <View className="h-6 w-20 skeleton" />
-        <View className="h-6 w-14 skeleton" />
-      </View>
-    </View>
-  );
-}

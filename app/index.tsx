@@ -4,8 +4,9 @@ import { FlatList } from 'react-native';
 
 import BottomRightButton from '~/components/BottomRightButton';
 import { ThemedText } from '~/components/ThemedText';
-import ListItemRow, { SkeletonListItemRow } from '~/components/lists/ListItemRow';
+import ListItemRow from '~/components/lists/ListItemRow';
 import SkeletonList from '~/components/skeleton/SkeletonList';
+import { SkeletonListItemRow } from '~/components/skeleton/SkeletonListItemRow';
 import { LIST_ITEM_HEIGHT } from '~/lib/constants';
 import type { ListItem } from '~/lib/supabase/supabaseAPI';
 import { useGetListsQuery } from '~/lib/supabase/supabaseAPI';

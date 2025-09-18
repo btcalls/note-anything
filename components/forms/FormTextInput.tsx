@@ -5,7 +5,7 @@ import { TextInput, View } from 'react-native';
 import { FormTextInputProps } from '~/constants/types';
 import { cn } from '~/lib/utils';
 
-import { ThemedText } from '../ThemedText';
+import ThemedText from '../ThemedText';
 
 export default function FormTextInput<T extends FieldValues>({
   name,

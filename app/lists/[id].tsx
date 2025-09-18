@@ -2,8 +2,8 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl } from 'react-native';
 
-import { ThemedText } from '~/components/ThemedText';
-import { ThemedView } from '~/components/ThemedView';
+import ThemedText from '~/components/ThemedText';
+import ThemedView from '~/components/ThemedView';
 import { NoteItem, useGetListNotesQuery } from '~/lib/supabase/supabaseAPI';
 import { getItemLayout } from '~/lib/utils';
 

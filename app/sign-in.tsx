@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { Button } from 'react-native';
 
-import { ThemedText } from '~/components/ThemedText';
-import { ThemedView } from '~/components/ThemedView';
+import ThemedText from '~/components/ThemedText';
+import ThemedView from '~/components/ThemedView';
 import { useAppDispatch } from '~/hooks/reduxHooks';
 import { logIn } from '~/lib/slices/authSlice';
 import { SupabaseQueryError, useLogInMutation } from '~/lib/supabase/supabaseAPI';

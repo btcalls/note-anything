@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { FlatList } from 'react-native';
 
 import BottomRightButton from '~/components/BottomRightButton';
-import { ThemedText } from '~/components/ThemedText';
+import ThemedText from '~/components/ThemedText';
 import ListItemRow from '~/components/lists/ListItemRow';
 import SkeletonList from '~/components/skeleton/SkeletonList';
 import { SkeletonListItemRow } from '~/components/skeleton/SkeletonListItemRow';

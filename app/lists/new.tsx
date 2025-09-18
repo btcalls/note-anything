@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import FormTagsRow from '~/components/forms/FormTagsRow';
 import FormTextInput from '~/components/forms/FormTextInput';
+import SkeletonTagsRow from '~/components/skeleton/SkeletonTagsRow';
 import { ThemedView } from '~/components/ThemedView';
 import { useGetTagsQuery } from '~/lib/supabase/supabaseAPI';
 
@@ -23,7 +24,7 @@ export default function ListModal() {
       tags: [],
     },
   });
-  const { data: tags } = useGetTagsQuery();
+  const { data: tags, isLoading } = useGetTagsQuery();
 
   const onSubmit = (data: FormData) => console.log(data);
 
@@ -42,17 +43,21 @@ export default function ListModal() {
         autoCorrect={false}
       />
 
-      {tags && (
-        <FormTagsRow<FormData>
-          name="tags"
-          control={control}
-          rules={{ minLength: 1 }}
-          tags={tags}
-          label="Which is About..."
-        />
+      {isLoading ? (
+        <SkeletonTagsRow />
+      ) : (
+        tags && (
+          <FormTagsRow<FormData>
+            name="tags"
+            control={control}
+            rules={{ required: true, minLength: 1 }}
+            tags={tags}
+            label="Which is About..."
+          />
+        )
       )}
 
-      <View className="flex-1" />
+      <View className="spacer" />
 
       <View className="flex-row gap-4 border-t border-gray-400 pt-6">
         <TouchableOpacity className="btn-cancel" onPress={() => router.back()}>

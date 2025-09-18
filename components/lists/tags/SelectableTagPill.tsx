@@ -15,12 +15,19 @@ type Props = {
 
 export default function SelectableTagPill({ tag, isSelected, onToggle }: Props) {
   return (
-    <TouchableOpacity onPress={() => onToggle(tag.id, !isSelected)}>
+    <TouchableOpacity
+      className={cn({
+        'h-12 w-fit items-center justify-center rounded-md px-4': true,
+        'border border-label': !isSelected,
+        'border border-brand bg-brand': isSelected,
+      })}
+      onPress={() => onToggle(tag.id, !isSelected)}
+    >
       <Text
         className={cn({
-          'w-fit rounded-md px-4 py-2 text-lg font-semibold': true,
-          'border border-label text-label': !isSelected,
-          'border border-brand bg-brand color-white': isSelected,
+          'text-lg font-semibold': true,
+          'text-label': !isSelected,
+          'text-white': isSelected,
         })}
       >
         {tag.name}

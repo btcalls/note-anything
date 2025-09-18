@@ -1,5 +1,5 @@
 import type { FieldValues } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
+import { Controller, useController } from 'react-hook-form';
 import { TextInput, View } from 'react-native';
 
 import { FormTextInputProps } from '~/constants/types';
@@ -7,14 +7,19 @@ import { cn } from '~/lib/utils';
 
 import ThemedText from '../ThemedText';
 
+import ErrorText from './ErrorText';
+
 export default function FormTextInput<T extends FieldValues>({
   name,
   control,
   rules,
   label,
-  error,
   ...inputProps
 }: FormTextInputProps<T>) {
+  const {
+    fieldState: { error },
+  } = useController({ name, control });
+
   return (
     <Controller
       name={name}
@@ -34,11 +39,13 @@ export default function FormTextInput<T extends FieldValues>({
             value={value}
             ref={ref}
             className={cn({
-              'h-16 w-full rounded-lg border border-gray-400 px-4': true,
+              'h-16 w-full rounded-lg border border-gray-400 px-4 font-medium': true,
               'border-2 border-red-500': !!error,
             })}
             {...inputProps}
           />
+
+          <ErrorText error={error?.message} />
         </View>
       )}
     />

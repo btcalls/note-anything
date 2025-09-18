@@ -1,8 +1,9 @@
 import type { ListRenderItem } from 'react-native';
 import { FlatList } from 'react-native';
 
-type Props = {
-  length: number;
+import type { SkeletonProps } from '~/constants/types';
+
+type Props = SkeletonProps & {
   renderItem: ListRenderItem<unknown>;
 };
 

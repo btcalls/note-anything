@@ -3,6 +3,7 @@ import { TextInputProps } from 'react-native';
 
 import type { TagItem } from '~/lib/supabase/supabaseAPI';
 
+// Forms
 export interface BaseFormComponentProps<T extends FieldValues> {
   name: Path<T>;
   control: Control<T>;
@@ -20,3 +21,8 @@ export interface FormTextInputProps<T extends FieldValues>
 export interface FormTagsProps<T extends FieldValues> extends BaseFormComponentProps<T> {
   tags: TagItem[];
 }
+
+// Skeleton
+export type SkeletonProps = {
+  length?: number;
+};

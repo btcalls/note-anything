@@ -2,7 +2,7 @@ import type { FieldValues } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { TextInput, View } from 'react-native';
 
-import { FormTextInputProps } from '~/constants/forms';
+import { FormTextInputProps } from '~/constants/types';
 import { cn } from '~/lib/utils';
 
 import { ThemedText } from '../ThemedText';

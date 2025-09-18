@@ -50,6 +50,9 @@ module.exports = {
         '.shadow-default': {
           '@apply shadow-sm shadow-label/35': {},
         },
+        '.spacer': {
+          '@apply flex-1': {},
+        },
         // Buttons
         '.btn-form': {
           '@apply h-14 flex-1 items-center justify-center rounded-xl border-2 border-foreground bg-background':

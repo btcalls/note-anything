@@ -1,6 +1,8 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryData } from '@supabase/supabase-js';
 
+import { ListFormData } from '~/app/lists/new';
+
 import { ArrayElement } from '../utils';
 
 import { supabase } from './supabaseClient';
@@ -81,6 +83,21 @@ export const supabaseApi = createApi({
         return { data: true };
       },
     }),
+    createList: builder.mutation<boolean, ListFormData>({
+      queryFn: async ({ name: p_name, tags: p_tag_ids }) => {
+        const { error } = await supabase.rpc('create_list_with_tags', {
+          p_name,
+          p_tag_ids,
+        });
+
+        // Handle RPC error (permission, validation, etc.)
+        if (error) {
+          return { error: { code: `${error.code}`, message: error.message } };
+        }
+
+        return { data: true };
+      },
+    }),
 
     // Queries
     getLists: builder.query<ListsQuery, void>({
@@ -131,5 +148,10 @@ export type ListItem = ArrayElement<ListsQuery>;
 export type NoteItem = ListNotesItem['notes'][0];
 export type TagItem = ArrayElement<TagsQuery>;
 
-export const { useLogInMutation, useGetListsQuery, useGetListNotesQuery, useGetTagsQuery } =
-  supabaseApi;
+export const {
+  useLogInMutation,
+  useCreateListMutation,
+  useGetListsQuery,
+  useGetListNotesQuery,
+  useGetTagsQuery,
+} = supabaseApi;

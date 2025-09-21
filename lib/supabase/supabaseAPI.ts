@@ -67,6 +67,7 @@ type TagsQuery = QueryData<typeof tagsQuery>;
 export const supabaseApi = createApi({
   reducerPath: 'supabaseApi',
   baseQuery: fakeBaseQuery<SupabaseQueryError>(),
+  tagTypes: ['List', 'Note', 'Tag'],
   endpoints: (builder) => ({
     // Mutations
     logIn: builder.mutation<boolean, { email: string; password: string }>({
@@ -84,6 +85,7 @@ export const supabaseApi = createApi({
       },
     }),
     createList: builder.mutation<boolean, ListFormData>({
+      invalidatesTags: ['List'],
       queryFn: async ({ name: p_name, tags: p_tag_ids }) => {
         const { error } = await supabase.rpc('create_list_with_tags', {
           p_name,
@@ -101,6 +103,7 @@ export const supabaseApi = createApi({
 
     // Queries
     getLists: builder.query<ListsQuery, void>({
+      providesTags: ['List'],
       queryFn: async () => {
         const { data, error } = await listsQuery;
 
@@ -112,6 +115,7 @@ export const supabaseApi = createApi({
       },
     }),
     getListNotes: builder.query<ListNotesItem, number>({
+      providesTags: ['Note'],
       queryFn: async (listId) => {
         const { data, error } = await notesQuery(listId);
 
@@ -129,6 +133,7 @@ export const supabaseApi = createApi({
       },
     }),
     getTags: builder.query<TagsQuery, void>({
+      providesTags: ['Tag'],
       queryFn: async () => {
         const { data, error } = await tagsQuery;
 

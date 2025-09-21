@@ -32,7 +32,7 @@ export default function FormTagsRow<T extends FieldValues>({
       name={name}
       control={control}
       rules={rules}
-      render={({ field: { onChange, onBlur, ref, value } }) => (
+      render={({ field: { onChange, value } }) => (
         <View className={viewStyle}>
           {label && (
             <ThemedText type="subtitle" className="w-full">

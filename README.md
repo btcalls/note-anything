@@ -26,7 +26,7 @@ This is created using the [RN Project Template](https://github.com/btcalls/rn-ex
 `env.template` is provided as a template for your `.env` files. This is where you'll supply the necessary keys and tokens, in this case, our Supabase configuration.
 
 #### Supabase
-Following mostly for this [documentation](https://supabase.com/docs/guides/api/rest/generating-types), first, we would need to login to get our Personal Access Token:
+Following mostly from this [documentation](https://supabase.com/docs/guides/api/rest/generating-types), first, we would need to login to get our Personal Access Token:
 
 ```bash
 npx supabase login

@@ -61,10 +61,9 @@ function GuardedStack() {
           name="index"
           options={{
             title: 'Your Lists',
-            headerLargeTitle: true,
           }}
         />
-        <Stack.Screen name="lists/[id]" options={{ title: '', headerLargeTitle: true }} />
+        <Stack.Screen name="lists/[id]" options={{ title: '' }} />
         <Stack.Screen
           name="lists/new"
           options={{

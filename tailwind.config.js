@@ -40,7 +40,9 @@ module.exports = {
       // NOTE: For custom utilities to be picked up by IntelliSense
       addUtilities({
         '.skeleton': {
-          '@apply animate-pulse rounded-md bg-gray-200 dark:bg-gray-700': {},
+          // TODO: re-enable pulse animation after fixing performance issues. See https://github.com/software-mansion/react-native-reanimated/discussions/1527
+          // '@apply animate-pulse rounded-md bg-gray-200 dark:bg-gray-700': {},
+          '@apply rounded-md bg-gray-200 dark:bg-gray-700': {},
         },
 
         '.btn-form': {

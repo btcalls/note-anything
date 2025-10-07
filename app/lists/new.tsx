@@ -21,7 +21,7 @@ const schema = yup.object({
 
 export type ListFormData = yup.InferType<typeof schema>;
 
-export default function ListModal() {
+export default function NewListScreen() {
   const { control, handleSubmit } = useForm<ListFormData>({
     defaultValues: {
       name: '',
@@ -29,6 +29,7 @@ export default function ListModal() {
     },
     resolver: yupResolver(schema),
   });
+  // TODO: Force-refresh tags; handle number of tags
   const { data: tags, isLoading: isTagsLoading } = useGetTagsQuery();
   const [createList, { isLoading }] = useCreateListMutation();
 
@@ -49,13 +50,12 @@ export default function ListModal() {
 
   // TODO: Handle errors
   return (
-    <ThemedView className="items-start justify-end gap-4 px-4 py-8">
+    <ThemedView className="flex-1 items-start justify-end gap-4 px-4 py-8">
       <FormTextInput<ListFormData>
         name="name"
         control={control}
         label="Your List Is..."
         placeholder="e.g. Trips"
-        autoFocus
         clearButtonMode="while-editing"
         enterKeyHint="done"
         autoCorrect={false}
@@ -76,8 +76,6 @@ export default function ListModal() {
           />
         )
       )}
-
-      <View className="spacer" />
 
       <View className="flex-row gap-4 border-t border-gray-400 pt-6">
         <TouchableOpacity className="btn-cancel" disabled={isLoading} onPress={() => router.back()}>

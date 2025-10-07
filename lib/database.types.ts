@@ -152,7 +152,10 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      create_list_with_tags: {
+        Args: { p_name: string; p_tag_ids: number[] };
+        Returns: Json;
+      };
     };
     Enums: {
       note_type: 'who' | 'what' | 'where';

@@ -27,3 +27,10 @@ export const NavTheme: { light: Theme; dark: Theme } = {
     fonts: DarkTheme.fonts,
   },
 };
+
+export const LIST_ITEM_HEIGHT = {
+  value: 90,
+  // NOTE: Workaround for Tailwind CSS arbitrary value support.
+  // See https://v2.tailwindcss.com/docs/just-in-time-mode#arbitrary-value-support
+  className: 'min-h-[90px]',
+};

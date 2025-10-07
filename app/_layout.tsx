@@ -68,9 +68,6 @@ function GuardedStack() {
           name="lists/new"
           options={{
             title: 'Create List',
-            presentation: 'formSheet',
-            sheetAllowedDetents: 'fitToContents',
-            gestureEnabled: false,
             headerBackButtonDisplayMode: 'minimal',
           }}
         />

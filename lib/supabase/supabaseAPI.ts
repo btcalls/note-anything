@@ -1,6 +1,8 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryData } from '@supabase/supabase-js';
 
+import { ListFormData } from '~/app/lists/new';
+
 import { ArrayElement } from '../utils';
 
 import { supabase } from './supabaseClient';
@@ -65,6 +67,7 @@ type TagsQuery = QueryData<typeof tagsQuery>;
 export const supabaseApi = createApi({
   reducerPath: 'supabaseApi',
   baseQuery: fakeBaseQuery<SupabaseQueryError>(),
+  tagTypes: ['List', 'Note', 'Tag'],
   endpoints: (builder) => ({
     // Mutations
     logIn: builder.mutation<boolean, { email: string; password: string }>({
@@ -81,9 +84,26 @@ export const supabaseApi = createApi({
         return { data: true };
       },
     }),
+    createList: builder.mutation<boolean, ListFormData>({
+      invalidatesTags: ['List'],
+      queryFn: async ({ name: p_name, tags: p_tag_ids }) => {
+        const { error } = await supabase.rpc('create_list_with_tags', {
+          p_name,
+          p_tag_ids,
+        });
+
+        // Handle RPC error (permission, validation, etc.)
+        if (error) {
+          return { error: { code: `${error.code}`, message: error.message } };
+        }
+
+        return { data: true };
+      },
+    }),
 
     // Queries
     getLists: builder.query<ListsQuery, void>({
+      providesTags: ['List'],
       queryFn: async () => {
         const { data, error } = await listsQuery;
 
@@ -95,6 +115,7 @@ export const supabaseApi = createApi({
       },
     }),
     getListNotes: builder.query<ListNotesItem, number>({
+      providesTags: ['Note'],
       queryFn: async (listId) => {
         const { data, error } = await notesQuery(listId);
 
@@ -112,6 +133,7 @@ export const supabaseApi = createApi({
       },
     }),
     getTags: builder.query<TagsQuery, void>({
+      providesTags: ['Tag'],
       queryFn: async () => {
         const { data, error } = await tagsQuery;
 
@@ -131,5 +153,10 @@ export type ListItem = ArrayElement<ListsQuery>;
 export type NoteItem = ListNotesItem['notes'][0];
 export type TagItem = ArrayElement<TagsQuery>;
 
-export const { useLogInMutation, useGetListsQuery, useGetListNotesQuery, useGetTagsQuery } =
-  supabaseApi;
+export const {
+  useLogInMutation,
+  useCreateListMutation,
+  useGetListsQuery,
+  useGetListNotesQuery,
+  useGetTagsQuery,
+} = supabaseApi;

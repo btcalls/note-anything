@@ -39,17 +39,25 @@ module.exports = {
     ({ addUtilities }) => {
       // NOTE: For custom utilities to be picked up by IntelliSense
       addUtilities({
+        '.card': {
+          '@apply gap-2 p-4 mx-4 rounded-lg shadow-default bg-background': {},
+        },
         '.skeleton': {
           // TODO: re-enable pulse animation after fixing performance issues. See https://github.com/software-mansion/react-native-reanimated/discussions/1527
           // '@apply animate-pulse rounded-md bg-gray-200 dark:bg-gray-700': {},
           '@apply rounded-md bg-gray-200 dark:bg-gray-700': {},
         },
-
+        '.shadow-default': {
+          '@apply shadow-sm shadow-label/35': {},
+        },
+        '.spacer': {
+          '@apply flex-1': {},
+        },
+        // Buttons
         '.btn-form': {
           '@apply h-14 flex-1 items-center justify-center rounded-xl border-2 border-foreground bg-background':
             {},
         },
-
         '.btn-cancel': {
           '@apply h-14 flex-1 items-center justify-center rounded-xl border-2 border-destructive bg-destructive':
             {},
